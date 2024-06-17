@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Datang</title>
+</head>
+
+<body>
+    <h1>Formulir Selamat Datang</h1>
+    <form id="selamatDatang">
+        <label for="nama">Masukkan Nama Anda:</label>
+        <input type="text" id="nama" name="nama" required>
+        <button type="submit">Kirim</button>
+    </form>
+    <div id="pesanSelamatDatang"></div>
+
+    <script>
+        document.getElementById('selamatDatang').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var nama = document.getElementById('nama').value;
+            var pesan = 'Selamat datang, ' + nama + '!';
+            document.getElementById('pesanSelamatDatang').innerText = pesan;
+        });
+    </script>
+</body>
+
+</html>

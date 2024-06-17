@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Kontak</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+  .kontak {
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Daftar Kontak</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Tambah Kontak</h2>
+      <form id="tambahKontakForm">
+        <div class="form-group">
+          <label for="nama">Nama:</label>
+          <input type="text" class="form-control" id="nama" required>
+        </div>
+        <div class="form-group">
+          <label for="nomor">Nomor Telepon:</label>
+          <input type="tel" class="form-control" id="nomor" required>
+        </div>
+        <div class="form-group">
+          <label for="gambar">Unggah Gambar:</label>
+          <input type="file" class="form-control-file" id="gambar" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Tambah Kontak</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Daftar Kontak</h2>
+      <div id="daftarKontak"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  var kontak = [];
+
+  function tambahKontak(nama, nomor, gambar) {
+    var newKontak = {
+      nama: nama,
+      nomor: nomor,
+      gambar: gambar
+    };
+    kontak.push(newKontak);
+    refreshDaftarKontak();
+  }
+
+  function refreshDaftarKontak() {
+    var daftarKontakDiv = document.getElementById('daftarKontak');
+    daftarKontakDiv.innerHTML = '';
+    kontak.forEach(function(item, index) {
+      var kontakHTML = '<div class="kontak">';
+      kontakHTML += '<img src="' + item.gambar + '" alt="Gambar Kontak">';
+      kontakHTML += '<p>Nama: ' + item.nama + '</p>';
+      kontakHTML += '<p>Nomor Telepon: ' + item.nomor + '</p>';
+      kontakHTML += '</div>';
+      daftarKontakDiv.innerHTML += kontakHTML;
+    });
+  }
+
+  document.getElementById('tambahKontakForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var nama = document.getElementById('nama').value;
+    var nomor = document.getElementById('nomor').value;
+    var gambar = document.getElementById('gambar').files[0];
+    var gambarURL = URL.createObjectURL(gambar);
+    tambahKontak(nama, nomor, gambarURL);
+    document.getElementById('tambahKontakForm').reset();
+  });
+</script>
+</body>
+</html>
